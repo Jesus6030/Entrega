@@ -11,21 +11,23 @@ public class App {
         int indice = 0; //Nos ayudará en los cálculos de posiciones en el array
         
         //Presentación menú
-        System.out.println("|" + "-".repeat(50) + "|");
-        System.out.println("| GESTIÓN DEL REFUGIO" + " ".repeat(30) + "|");
-        System.out.println("|" + "-".repeat(50) + "|");
-        System.out.println("| 1) Crear un nuevo registro de animales" + " ".repeat(11) + "|");
-        System.out.println("| 2) Configurar el precio del alimanto por kg" + " ".repeat(6) + "|");
-        System.out.println("| 3) Añadir un nuevo animal al refugio" + " ".repeat(13) + "|");
-        System.out.println("| 4) Mpstrar información de los animales" + " ".repeat(11) + "|");
-        System.out.println("| 5) Salir (se borrará toda a información)" + " ".repeat(9) + "|");
-        System.out.println("|" + "-".repeat(50) + "|");
-        System.out.print("\nSeleccione una opción (1-5): ");
+        //CAMBIAR A PRINTF
+        System.out.printf("|" + "-".repeat(50) + "|\n");
+        System.out.printf("| GESTIÓN DEL REFUGIO" + " ".repeat(30) + "|\n");
+        System.out.printf("|" + "-".repeat(50) + "|\n");
+        System.out.printf("| 1) Crear un nuevo registro de animales" + " ".repeat(11) + "|\n");
+        System.out.printf("| 2) Configurar el precio del alimanto por kg" + " ".repeat(6) + "|\n");
+        System.out.printf("| 3) Añadir un nuevo animal al refugio" + " ".repeat(13) + "|\n");
+        System.out.printf("| 4) Mpstrar información de los animales" + " ".repeat(11) + "|\n");
+        System.out.printf("| 5) Salir (se borrará toda a información)" + " ".repeat(9) + "|\n");
+        System.out.printf("|" + "-".repeat(50) + "|\n");
+        System.out.printf("Seleccione una opción (1-5): ");
         int i = sc.nextInt();
 
         //Ejecución del menú
         while (i < 5) {
             if (i == 1){
+                //Nuevo Array de registros
                 refugio.setCantidadRegistros(0);
                 while (refugio.getCantidadRegistros() <= 0) {
                     System.out.println("Introduzca cuantos animales quiere registrar (>0): ");
@@ -46,19 +48,23 @@ public class App {
                 indice = -libre;
 
             }if (i == 2){
+                //Precio único de alimento
                 refugio.setPrecioAlimentoKg(3);
                 System.out.println("Introduzca el precio del alimento (>0): ");
                 if (sc.hasNextDouble()){
                     double nuevoPrecio = sc.nextDouble();
                     if (nuevoPrecio > 0){
                     refugio.setPrecioAlimentoKg(nuevoPrecio);
+                    }else{
+                        System.out.println("Se mantiene el precio por defecto.");
                     }
                 }else{
-                    System.out.println("Error: valor debe ser un número entero >0. Se mantiene el precio por defecto.");
+                    System.out.println("Error: valor debe ser un número entero >0.");
                     sc.next(); // Limpia la entrada no válida
                 }
                System.out.println("El precio del alimento es: " + refugio.getPrecioAlimentoKg());
             }if (i == 3){
+                //Nuevo registro
                 libre = libre - 1;
                 indice = indice + 2;
                 if(libre >0){
@@ -114,7 +120,14 @@ public class App {
                 }
 
             }if (i == 4) {
-                
+                //Tabla
+                System.out.printf("|" + "-".repeat(95) + "|\n");
+                System.out.printf("| ANIMALES DEL REFUGIO " + " ".repeat(73)+ "|\n");
+                System.out.printf("|" + "-".repeat(95) + "|\n");
+                System.out.printf("| Nombre     | Especie  | Cuidador          | Formación | Peso (kg) | Consumo (kg) | Coste EUR  |\n");
+                System.out.printf("");
+                System.out.printf("| Coste diario total de alimentación: ");
+                System.out.printf("| Peso medio de los animales: ");
             }
             System.out.println("\nSeleccione una opción (1-5): ");
             i = sc.nextInt();
