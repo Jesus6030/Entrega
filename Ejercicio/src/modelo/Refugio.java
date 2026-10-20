@@ -55,7 +55,7 @@ public class Refugio {
         return this.precioAlimentoKg;
     }
     public int getCantidadRegistros(){
-        return animales.length; 
+        return this.cantRegistros; 
     }
 
     public void setAnimales(Animal[] animales){
