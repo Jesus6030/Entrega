@@ -4,14 +4,14 @@ import java.io.Console;
 public class Animal {
     //Atributos
     Console console = System.console();
-    private Cuidador cuidador = new Cuidador();
+    private Cuidador cuidador;
     private String nombreAnimal;
     private String especie;
     private Double pesoKg;
     private Double alimentoKg;
 
     //Constructores
-    public Animal(){
+    public Animal(String nombreAnimal, String especie, double pesoKg, double alimentoKg, Cuidador cuidador){
         this.cuidador = cuidador;
         this.nombreAnimal = nombreAnimal;
         this.especie = especie;
@@ -45,17 +45,17 @@ public class Animal {
     public void setEspecie(String especie){
         this.especie = especie;
     }
-    public void setPesoKg(double pesoKg){
-        while (pesoKg <= 0) {
-            pesoKg = Integer.parseInt(console.readLine("El peso debe ser mayor a 0kg. Introduzca de nuevo el peso: "));
-        }
+    //Comprobación que peso y alimento son mayores a 0
+    public void setPesoKg(double pesoKg) {
+    if (pesoKg <= 0) {
+        throw new IllegalArgumentException("El peso debe ser mayor a 0 kg.");
+    }
         this.pesoKg = pesoKg;
     }
-    public void setAlimentoKG(double alimentoKg){
-        while (alimentoKg <= 0) {
-            alimentoKg = Integer.parseInt(console.readLine("El alimento debe ser mayor a 0kg. Introduzca de nuevo la canridad de alimento: "));
-        }
-        this.alimentoKg =  alimentoKg;
+    public void setAlimentoKg(double alimentoKg) {
+    if (alimentoKg <= 0) {
+        throw new IllegalArgumentException("El alimento debe ser mayor a 0 kg.");
     }
-
+        this.alimentoKg = alimentoKg;
+    }
 }

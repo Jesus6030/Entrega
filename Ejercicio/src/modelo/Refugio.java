@@ -1,25 +1,34 @@
 package modelo;
-import java.util.ArrayList;
 
 public class Refugio {
     //Atributos
-    private ArrayList<Animal> animales = new ArrayList<>();
+    private Animal[] animales;
     private double precioAlimentoKg;
     private int cantRegistros;
     
     //Constructores
-    public Refugio(){
-        this.animales = animales;
+    //por defecto
+    public Refugio(){}
+    //con parámetro
+    public Refugio(int cantRegistros, double precioAlimentoKg){
+        this.animales = new Animal[cantRegistros];
         this.precioAlimentoKg = precioAlimentoKg;
         this. cantRegistros = cantRegistros;
     }
     
+    // 1) Método para crear un nuevo registro
+    public void crearNuevoregistro(int cantRegistros){
+        if (cantRegistros <= 0){
+            throw new IllegalArgumentException("La cantidad de registros debe ser mayor a 0.");
+        }
+        this.animales = new Animal[cantRegistros];
+    }
+
     //Métodos (cálculos)
-    public ArrayList<Double> costeAnimales(){
-        ArrayList<Double> costeAniamles = new ArrayList<>();
+    public double[] costeAnimales(){
+        double[] costeAniamles = new double[cantRegistros];
         for (int i = 0; i <= cantRegistros; i++){
-            double costeAnimal = getPrecioAlimentoKg()*animales.get(i).getAlimentoKg();
-            costeAniamles.add(costeAnimal);
+            costeAniamles[i] = getPrecioAlimentoKg()*animales[i].getAlimentoKg();
         }
         return costeAniamles;
     }
@@ -39,21 +48,24 @@ public class Refugio {
     }
 
     //Getters y Setters
-    public ArrayList<Animal> getAnimales(){
+    public Animal[] getAnimales(){
         return this.animales;
     }
     public double getPrecioAlimentoKg(){
-        return this.precioAlimentoKg = precioAlimentoKg;
+        return this.precioAlimentoKg;
     }
     public int getCantidadRegistros(){
-        return animales.size(); 
+        return animales.length; 
     }
 
-    public void setAnimales(ArrayList<Animal> animales){
+    public void setAnimales(Animal[] animales){
         this.animales = animales;
     }
     public void setPrecioAlimentoKg(double precioAlimentoKg){
         this.precioAlimentoKg = precioAlimentoKg;
+    }
+    public void setCantidadRegistros(int cantRegistros){
+        this.cantRegistros = cantRegistros; 
     }
     
 }

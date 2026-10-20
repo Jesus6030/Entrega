@@ -7,7 +7,7 @@ public class Cuidador {
     private Boolean formacion;
 
     //Constructores
-    public Cuidador(){
+    public Cuidador(String nombreCuidador, String apellidos, Boolean formacion){
         this.nombreCuidador = nombreCuidador;
         this.apellidos = apellidos;
         this.formacion = formacion;
