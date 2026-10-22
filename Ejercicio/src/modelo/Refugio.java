@@ -32,17 +32,17 @@ public class Refugio {
         }
         return costeAniamles;
     }
-    public double costeDiarioTotal(){
+    public double costeDiarioTotal(Animal[] animales){
         double coste = 0;
         for (Animal animal : animales){
             coste = coste + getPrecioAlimentoKg()*animal.getAlimentoKg();
         }
         return coste;
     }
-    public double pesoMedio(){
+    public double pesoMedio(Animal[] animales){
         double peso = 0;
         for (Animal animal : animales){
-            peso = peso + getPrecioAlimentoKg()*animal.getPesoKg();
+            peso = peso + animal.getPesoKg();
         }
         return peso/cantRegistros;
     }
