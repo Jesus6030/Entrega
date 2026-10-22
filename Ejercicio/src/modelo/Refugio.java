@@ -25,24 +25,25 @@ public class Refugio {
     }
 
     //Métodos (cálculos)
-    public double[] costeAnimales(){
-        double[] costeAniamles = new double[cantRegistros];
-        for (int i = 0; i <= cantRegistros; i++){
-            costeAniamles[i] = getPrecioAlimentoKg()*animales[i].getAlimentoKg();
-        }
-        return costeAniamles;
+    public double costeAnimal(double alimentokg){
+        double consumo = getPrecioAlimentoKg()*alimentokg;
+        return consumo;
     }
     public double costeDiarioTotal(Animal[] animales){
         double coste = 0;
         for (Animal animal : animales){
-            coste = coste + getPrecioAlimentoKg()*animal.getAlimentoKg();
+            if (animal != null){
+                coste = coste + getPrecioAlimentoKg()*animal.getAlimentoKg();
+            }        
         }
         return coste;
     }
     public double pesoMedio(Animal[] animales){
         double peso = 0;
         for (Animal animal : animales){
+            if (animal != null){
             peso = peso + animal.getPesoKg();
+            }
         }
         return peso/cantRegistros;
     }

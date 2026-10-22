@@ -6,25 +6,26 @@ public class App {
         Scanner sc = new Scanner(System.in);
         Refugio refugio = new Refugio();
         Animal[] nuevoRegistro = new Animal[0];
-        //Variable auxiliar para el conteo de la opción 3)
-        int indice = 0; //Nos ayudará en los cálculos de posiciones en el array
-        
-        //Presentación menú
-        System.out.printf("|" + "-".repeat(50) + "|\n");
-        System.out.printf("| GESTIÓN DEL REFUGIO" + " ".repeat(30) + "|\n");
-        System.out.printf("|" + "-".repeat(50) + "|\n");
-        System.out.printf("| 1) Crear un nuevo registro de animales" + " ".repeat(11) + "|\n");
-        System.out.printf("| 2) Configurar el precio del alimanto por kg" + " ".repeat(6) + "|\n");
-        System.out.printf("| 3) Añadir un nuevo animal al refugio" + " ".repeat(13) + "|\n");
-        System.out.printf("| 4) Mpstrar información de los animales" + " ".repeat(11) + "|\n");
-        System.out.printf("| 5) Salir (se borrará toda a información)" + " ".repeat(9) + "|\n");
-        System.out.printf("|" + "-".repeat(50) + "|\n");
-        System.out.printf("Seleccione una opción (1-5): ");
-        int i = sc.nextInt();
-        sc.nextLine(); //Limpieza de línea
+        int indice = 0;
+        int i = 0;
+        //Precio único de alimento
+        refugio.setPrecioAlimentoKg(3);
 
         //Ejecución del menú
         while (i < 5) {
+            //Presentación menú
+            System.out.printf("|" + "-".repeat(50) + "|\n");
+            System.out.printf("| GESTIÓN DEL REFUGIO" + " ".repeat(30) + "|\n");
+            System.out.printf("|" + "-".repeat(50) + "|\n");
+            System.out.printf("| 1) Crear un nuevo registro de animales" + " ".repeat(11) + "|\n");
+            System.out.printf("| 2) Configurar el precio del alimanto por kg" + " ".repeat(6) + "|\n");
+            System.out.printf("| 3) Añadir un nuevo animal al refugio" + " ".repeat(13) + "|\n");
+            System.out.printf("| 4) Mpstrar información de los animales" + " ".repeat(11) + "|\n");
+            System.out.printf("| 5) Salir (se borrará toda a información)" + " ".repeat(9) + "|\n");
+            System.out.printf("|" + "-".repeat(50) + "|\n");
+            System.out.printf("Seleccione una opción (1-5): ");
+            i = sc.nextInt();
+            sc.nextLine(); //Limpieza de línea
             if (i == 1){
                 //Nuevo Array de registros
                 refugio.setCantidadRegistros(0);
@@ -43,11 +44,8 @@ public class App {
                 nuevoRegistro = new Animal[refugio.getCantidadRegistros()];
                 refugio.setAnimales(nuevoRegistro);
                 System.out.println("Nuevo registro creado:\nHay " + refugio.getAnimales().length + " huecos disponibles.");
-                //Nuevo valor para variable auxiliar del conteo de la opción 3)
 
             }if (i == 2){
-                //Precio único de alimento
-                refugio.setPrecioAlimentoKg(3);
                 System.out.println("Introduzca el precio del alimento (>0): ");
                 if (sc.hasNextDouble()){
                     double nuevoPrecio = sc.nextDouble();
@@ -64,13 +62,13 @@ public class App {
                System.out.println("El precio del alimento es: " + refugio.getPrecioAlimentoKg());
             }if (i == 3){
                 //Nuevo registro
-                if(indice <= refugio.getCantidadRegistros()){
+                if (indice < nuevoRegistro.length){
                     Cuidador cuidador = new Cuidador(null, null, null);
                     System.out.println("Introduzca los datos del cuidador: ");
                     System.out.println("Nombre del cuidador: ");
                     cuidador.setNombreCuidador(sc.nextLine());
                     System.out.println("Apellidos: ");
-                    cuidador.setApellidos(sc.nextLine());
+                    cuidador.setApellidos(sc.nextLine());   
                     System.out.println("Formación (1 = si/0 = no): ");
                     int formacion = 2;
                     while (formacion != 0 && formacion !=1) {
@@ -118,28 +116,32 @@ public class App {
                         }
                     }
                     nuevoRegistro[indice] = new Animal(animal.getNombreAnimal(), animal.getEspecie(), animal.getPesoKg(), animal.getAlimentoKg(), animal.getCuidador());
-                    indice = indice + 1;
+                    indice = indice++;
                 }else{
                     System.out.println("No quedan huecos libres para registros. :(");
                 }
-
             }if (i == 4) {
                 //Tabla
-                System.out.printf("|" + "-".repeat(95) + "|\n");
-                System.out.printf("| ANIMALES DEL REFUGIO " + " ".repeat(73)+ "|\n");
-                System.out.printf("|" + "-".repeat(95) + "|\n");
-                System.out.printf("| Nombre     | Especie  | Cuidador          | Formación | Peso (kg) | Consumo (kg) | Coste EUR  |\n");
-                System.out.printf("");
-                System.out.printf("|" + "-".repeat(95) + "|\n");
-                System.out.printf("| Coste diario total de alimentación: \n" + refugio.costeDiarioTotal(nuevoRegistro));
-                System.out.printf("| Peso medio de los animales: \n" + refugio.pesoMedio(nuevoRegistro));
-                System.out.printf("|" + "-".repeat(95) + "|\n");
+                System.out.printf("|" + "-".repeat(101) + "|\n");
+                System.out.printf("| %-99s |\n", "ANIMALES DEL REFUGIO");
+                System.out.printf("|" + "-".repeat(101) + "|\n");
+                System.out.printf("| %-12s | %-10s | %-20s | %-9s | %-9s | %-12s | %-9s |\n",
+                    "Nombre", "Especie", "Cuidador", "Formación", "Peso (kg)", "Consumo (kg)", "Coste EUR");
+                System.out.printf("|" + "-".repeat(101) + "|\n");
+                    for (Animal animal : nuevoRegistro){
+                        if (animal != null) {
+                            System.out.printf("| %-12s | %-10s | %-20s | %-9s | %-9.2f | %-12.2f | %-9.2f |\n",
+                                animal.getNombreAnimal(),animal.getEspecie(),animal.getCuidador().getNombreCuidador(),
+                                animal.getCuidador().getFormacion(), animal.getPesoKg(), animal.getAlimentoKg(), refugio.costeAnimal(animal.getAlimentoKg()));
+                        }
+                    }
+                System.out.printf("|" + "-".repeat(101) + "|\n");
+                System.out.printf("| Coste diario total de alimentación: %62.2f  |\n", refugio.costeDiarioTotal(nuevoRegistro));
+                System.out.printf("| Peso medio de los animales: %70.2f  |\n", refugio.pesoMedio(nuevoRegistro));
+                System.out.printf("|" + "-".repeat(101) + "|\n\n");
             }
-            System.out.println("\nSeleccione una opción (1-5): ");
-            i = sc.nextInt();
-            sc.nextLine();
         }
-        System.out.println("Ejecución finalizada:");
+        System.out.println("Ejecución finalizada, se borarán todos los datos.");
         sc.close();
     }          
 }
