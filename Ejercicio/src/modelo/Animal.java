@@ -47,15 +47,9 @@ public class Animal {
     }
     //Comprobación que peso y alimento son mayores a 0
     public void setPesoKg(double pesoKg) {
-    if (pesoKg <= 0) {
-        throw new IllegalArgumentException("El peso debe ser mayor a 0 kg.");
-    }
         this.pesoKg = pesoKg;
     }
     public void setAlimentoKg(double alimentoKg) {
-    if (alimentoKg <= 0) {
-        throw new IllegalArgumentException("El alimento debe ser mayor a 0 kg.");
-    }
         this.alimentoKg = alimentoKg;
     }
 }

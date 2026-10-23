@@ -2,8 +2,8 @@ import modelo.*;
 import java.util.Scanner;
 
 public class App {
+    private static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
         Refugio refugio = new Refugio();
         Animal[] nuevoRegistro = new Animal[0];
         int indice = 0;
@@ -12,7 +12,7 @@ public class App {
         refugio.setPrecioAlimentoKg(3);
 
         //Ejecución del menú
-        while (i < 5) {
+        while (i != 5) {
             //Presentación menú
             System.out.printf("|" + "-".repeat(50) + "|\n");
             System.out.printf("| GESTIÓN DEL REFUGIO" + " ".repeat(30) + "|\n");
@@ -23,9 +23,7 @@ public class App {
             System.out.printf("| 4) Mpstrar información de los animales" + " ".repeat(11) + "|\n");
             System.out.printf("| 5) Salir (se borrará toda a información)" + " ".repeat(9) + "|\n");
             System.out.printf("|" + "-".repeat(50) + "|\n");
-            System.out.printf("Seleccione una opción (1-5): ");
-            i = sc.nextInt();
-            sc.nextLine(); //Limpieza de línea
+            i = leerEnteroEnRango("Seleccione una opción (1-5): ", 1, 5);
             if (i == 1){
                 //Nuevo Array de registros
                 refugio.setCantidadRegistros(0);
@@ -59,7 +57,7 @@ public class App {
                     System.out.println("Error: valor debe ser un número entero >0.");
                     sc.next(); // Limpia la entrada no válida
                 }
-               System.out.println("El precio del alimento es: " + refugio.getPrecioAlimentoKg());
+               System.out.printf("%s %.2f \n","El precio del alimento es:", refugio.getPrecioAlimentoKg());
             }if (i == 3){
                 //Nuevo registro
                 if (indice < nuevoRegistro.length){
@@ -95,28 +93,26 @@ public class App {
                     animal.setNombreAnimal(sc.nextLine());
                     System.out.println("Especie animal: ");
                     animal.setEspecie(sc.nextLine());
-                    System.out.println("Peso (kg) del animal: ");
                     while (animal.getPesoKg() <= 0) {
+                        System.out.println("Introduzca el peso del animal (>0kg)");
                         if (sc.hasNextDouble()) {
                             animal.setPesoKg(sc.nextDouble());
                             sc.nextLine(); //Limpieza de línea
                         }else{
-                            System.out.println("Introduzca un peso mayor a 0kg: ");
                             sc.next(); // Limpia la entrada no válida
                         }
                     }
-                    System.out.println("Cantidad de alimento que necesita (kg): ");
                     while (animal.getAlimentoKg() <= 0) {
+                        System.out.println("Introduzca el alimrnto que necesita el animal (>0kg)");
                         if (sc.hasNextDouble()) {
                             animal.setAlimentoKg(sc.nextDouble());
                             sc.nextLine(); //Limpieza de línea
                         }else{
-                            System.out.println("Introduzca un peso mayor a 0kg: ");
                             sc.next();
                         }
                     }
                     nuevoRegistro[indice] = new Animal(animal.getNombreAnimal(), animal.getEspecie(), animal.getPesoKg(), animal.getAlimentoKg(), animal.getCuidador());
-                    indice = indice++;
+                    indice = indice + 1;
                 }else{
                     System.out.println("No quedan huecos libres para registros. :(");
                 }
@@ -131,10 +127,10 @@ public class App {
                     for (Animal animal : nuevoRegistro){
                         if (animal != null) {
                             System.out.printf("| %-12s | %-10s | %-20s | %-9s | %-9.2f | %-12.2f | %-9.2f |\n",
-                                animal.getNombreAnimal(),animal.getEspecie(),animal.getCuidador().getNombreCuidador(),
+                                animal.getNombreAnimal(),animal.getEspecie(),animal.getCuidador().getNombreCuidador()+" "+animal.getCuidador().getApellidos(),
                                 animal.getCuidador().getFormacion(), animal.getPesoKg(), animal.getAlimentoKg(), refugio.costeAnimal(animal.getAlimentoKg()));
                         }
-                    }
+                }
                 System.out.printf("|" + "-".repeat(101) + "|\n");
                 System.out.printf("| Coste diario total de alimentación: %62.2f  |\n", refugio.costeDiarioTotal(nuevoRegistro));
                 System.out.printf("| Peso medio de los animales: %70.2f  |\n", refugio.pesoMedio(nuevoRegistro));
@@ -144,4 +140,23 @@ public class App {
         System.out.println("Ejecución finalizada, se borarán todos los datos.");
         sc.close();
     }          
+
+    //metodo generado por IA a partir de mi código
+    private static int leerEnteroEnRango(String mensaje, int min, int max) { 
+        int valor = min - 1;
+        while (valor < min || valor > max) {
+            System.out.print(mensaje);
+            if (sc.hasNextInt()) {
+                valor = sc.nextInt();
+                sc.nextLine(); // Limpieza de búfer
+                if (valor < min || valor > max) {
+                    System.out.println("Error: El número debe estar entre " + min + " y " + max + ".");
+                }
+            } else {
+                System.out.println("Error: Entrada no válida. Introduzca un número.");
+                sc.nextLine();
+            }
+        }
+        return valor;
+    }
 }

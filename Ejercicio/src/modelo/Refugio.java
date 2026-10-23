@@ -3,11 +3,11 @@ package modelo;
 public class Refugio {
     //Atributos
     private Animal[] animales;
-    private double precioAlimentoKg;
-    private int cantRegistros;
+    private double precioAlimentoKg = 3;
+    private int cantRegistros = 0;
     
     //Constructores
-    //por defecto
+    //Por defecto
     public Refugio(){}
     //con parámetro
     public Refugio(int cantRegistros, double precioAlimentoKg){
@@ -26,26 +26,27 @@ public class Refugio {
 
     //Métodos (cálculos)
     public double costeAnimal(double alimentokg){
-        double consumo = getPrecioAlimentoKg()*alimentokg;
-        return consumo;
+        return getPrecioAlimentoKg()*alimentokg;
     }
     public double costeDiarioTotal(Animal[] animales){
+        if (animales == null || cantRegistros == 0) return 0.0; //Para huecos vacíos
         double coste = 0;
         for (Animal animal : animales){
             if (animal != null){
-                coste = coste + getPrecioAlimentoKg()*animal.getAlimentoKg();
+                coste += getPrecioAlimentoKg()*animal.getAlimentoKg();
             }        
         }
         return coste;
     }
     public double pesoMedio(Animal[] animales){
+        if (animales == null || cantRegistros == 0) return 0.0; //Para huecos vacíos
         double peso = 0;
         for (Animal animal : animales){
             if (animal != null){
             peso = peso + animal.getPesoKg();
             }
         }
-        return peso/cantRegistros;
+        return peso;
     }
 
     //Getters y Setters
@@ -63,6 +64,9 @@ public class Refugio {
         this.animales = animales;
     }
     public void setPrecioAlimentoKg(double precioAlimentoKg){
+        if (precioAlimentoKg <= 0) {
+            throw new IllegalArgumentException("El precio debe ser mayor a 0.");
+        }
         this.precioAlimentoKg = precioAlimentoKg;
     }
     public void setCantidadRegistros(int cantRegistros){
