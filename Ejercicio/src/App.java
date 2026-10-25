@@ -20,7 +20,7 @@ public class App {
             System.out.printf("| 1) Crear un nuevo registro de animales" + " ".repeat(11) + "|\n");
             System.out.printf("| 2) Configurar el precio del alimanto por kg" + " ".repeat(6) + "|\n");
             System.out.printf("| 3) Añadir un nuevo animal al refugio" + " ".repeat(13) + "|\n");
-            System.out.printf("| 4) Mpstrar información de los animales" + " ".repeat(11) + "|\n");
+            System.out.printf("| 4) Mostrar información de los animales" + " ".repeat(11) + "|\n");
             System.out.printf("| 5) Salir (se borrará toda a información)" + " ".repeat(9) + "|\n");
             System.out.printf("|" + "-".repeat(50) + "|\n");
             i = leerEnteroEnRango("Seleccione una opción (1-5): ", 1, 5);
